@@ -1,44 +1,73 @@
-"""
-This class is a calculator that performs arithmatic oparation on two numbers.
+from pathlib import Path
 
-complete methods below and add missing methods according to the tests.
+"""Utilities: Calculator and History implementations.
 
+Completed implementations for Calculator and History according to the tests.
 """
+from typing import List
+
 class Calculator():
-    """rounding_digits is a default value by which 
-    the calculator rounds off numbers 10/3 = 3.3333333333...
-    if rounding_digits = 2 the answer for this expression is 3.33  
+    """
+    Rounding behavior:
+    - If rounding_digits == 0, integer-like results should be returned as int.
+    - Otherwise return a float rounded to rounding_digits.
     """
     rounding_digits = 0
+
+    def __init__(self, round_digits: int = 0):
+        self.rounding_digits = int(round_digits)
+
+    def _round(self, value):
+        if self.rounding_digits == 0:
+            v = round(value, 0)
+            try:
+                if float(v).is_integer():
+                    return int(v)
+            except Exception:
+                pass
+            return int(v)
+        else:
+            return round(value, self.rounding_digits)
+
     
-    def __init__(self,round_digits):
-        self.rounding_digits = round_digits
-        
-    def addtion(self,a,b):
-        return 0
-    def subtraction(self,a,b):
-        return 0
-    def multiplication(self,a,b):
-        return 0
-    def division(self,a,b):
-        return 0
-    
-    @property
-    def round_digits(self):
-        return self.rounding_digits
-    
-    def set_ound_digits(self,digits):
-        self.rounding_digits = digits
-        
-    
+    def addtion(self, a, b):
+        return self._round(a + b)
+
+    def subtraction(self, a, b):
+        return self._round(a - b)
+
+    def multiplication(self, a, b):
+        return self._round(a * b)
+
+    def division(self, a, b):
+        return self._round(a / b)
+
+    def set_ound_digits(self, digits):
+        self.rounding_digits = int(digits)
+
+
 class History():
+    """Simple history backed by a text file.
+
+    - save(expression: str): appends the expression (with newline) to file.
+    - restore() -> list[str]: returns list of lines (as strings). If file doesn't exist or is empty, return [].
+    - clear(): empties the file.
+    """
     filepath_ = ""
-    def __init__(self, filepath):
+    def __init__(self, filepath: str):
         self.filepath_ = filepath
-        
-    def save(self,expression:str):
-        pass
-    def restore(self)->list[str]:
-        pass
+
+    def save(self, expression: str):
+        Path(self.filepath_).parent.mkdir(parents=True, exist_ok=True)
+        with open(self.filepath_, "a", encoding="utf-8") as f:
+            f.write(expression.rstrip() + "\n")
+
+    def restore(self) -> List[str]:
+        if not Path(self.filepath_).exists():
+            return []
+        with open(self.filepath_, "r", encoding="utf-8") as f:
+            lines = [line.rstrip("\n") for line in f.readlines() if line.strip() != ""]
+        return lines
+
     def clear(self):
-        pass
+        open(self.filepath_, "w", encoding="utf-8").close()

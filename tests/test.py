@@ -52,10 +52,10 @@ class TestCalculator(unittest.TestCase):
 
     # --- Property Tests ---
     def test_rounding_property(self):
-        self.assertEqual(self.calc2.round_digits, 2)
-        self.assertEqual(self.calc0.round_digits, 0)
-        self.assertIsInstance(self.calc2.round_digits, int)
-        self.assertGreaterEqual(self.calc2.round_digits, 0)
+        self.assertEqual(self.calc2.rounding_digits, 2)
+        self.assertEqual(self.calc0.rounding_digits, 0)
+        self.assertIsInstance(self.calc2.rounding_digits, int)
+        self.assertGreaterEqual(self.calc2.rounding_digits, 0)
 
 
         

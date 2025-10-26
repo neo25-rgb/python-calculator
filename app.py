@@ -54,7 +54,6 @@ if __name__ == "__main__":
     while True:
         user_input = input("\033[36m> \033[0m")
         parts = user_input.split(" ")
-        #prints history : last 5 expressions with the last expression being first
         if (user_input.strip().lower() == "h"):
             print("--------History---------\n")
             h = history.restore()
@@ -91,8 +90,3 @@ if __name__ == "__main__":
                 
             history.save(f"{user_input.strip()} = {ans}")
             print("=",ans,end="\n\n")
-        
-            
-    
-
-    
