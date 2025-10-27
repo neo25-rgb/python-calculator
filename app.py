@@ -8,7 +8,7 @@ def is_valid_expression(exp: str) -> bool:
 
     # Expression must have exactly 3 parts: number, operator, number
     if len(parts) != 3:
-        print("❌ Expression must have exactly 3 parts: e.g., '2 + 3'")
+        print("Expression must have exactly 3 parts: e.g., '2 + 3'")
         return False
 
     a_str, operator, b_str = parts
@@ -18,13 +18,13 @@ def is_valid_expression(exp: str) -> bool:
         float(a_str)
         float(b_str)
     except ValueError:
-        print("❌ Both operands must be valid numbers (int or float).")
+        print("Both operands must be valid numbers (int or float).")
         return False
 
     # Validate operator
     valid_ops = {"+", "-", "*", "/", "x", "X"}
     if operator not in valid_ops:
-        print(f"❌ Invalid operator '{operator}'. Must be one of {', '.join(valid_ops)}.")
+        print(f" Invalid operator '{operator}'. Must be one of {', '.join(valid_ops)}.")
         return False
 
     # If all checks pass
